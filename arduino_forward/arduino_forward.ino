@@ -1,9 +1,9 @@
 
 //set pin numbers for the outputs
-const int leftFor = 26;
-const int leftRev = 30;
-const int rightFor = 28;
-const int rightRev = 32;
+const int leftRev = 28;
+const int leftFor = 30;
+const int rightRev = 26;
+const int rightFor = 32;
 const int motorControlPinR = 5;
 const int motorControlPinL = 4;
 const int trigPin = 2;
@@ -31,6 +31,7 @@ void setup() {
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   Serial.begin(9600); // Starts the serial communication
 
+Serial.println("forward");
   //  move forward
   setLeftForward();
   setRightForward();
@@ -39,7 +40,7 @@ void setup() {
   slowStopMotors();
 
   delay(1000);
-
+Serial.println("backward");
   //move backwards
   setLeftReverse();
   setRightReverse();
@@ -49,6 +50,7 @@ void setup() {
 
   delay(1000);
 
+Serial.println("spin");
   //spin in place
   setLeftForward();
   setRightReverse();
@@ -81,29 +83,29 @@ void loop() {
   //
   //  delay(1000);
   // Clears the trigPin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
-  // Calculating the distance
-  distance = duration * 0.034 / 2;
-  // Prints the distance on the Serial Monitor
-  if (distance < 20)
-  { Serial.println("you are to close");
-    Serial.print("Distance: ");
-    Serial.println(distance);
-  }
-  else {
-    Serial.println("you are good");
-    Serial.print("Distance: ");
-    Serial.println(distance);
-  }
-
-  delay(5000);
+//  digitalWrite(trigPin, LOW);
+//  delayMicroseconds(2);
+//  // Sets the trigPin on HIGH state for 10 micro seconds
+//  digitalWrite(trigPin, HIGH);
+//  delayMicroseconds(10);
+//  digitalWrite(trigPin, LOW);
+//  // Reads the echoPin, returns the sound wave travel time in microseconds
+//  duration = pulseIn(echoPin, HIGH);
+//  // Calculating the distance
+//  distance = duration * 0.034 / 2;
+//  // Prints the distance on the Serial Monitor
+//  if (distance < 20)
+//  { Serial.println("you are to close");
+//    Serial.print("Distance: ");
+////    Serial.println(distance);
+//  }
+//  else {
+//    Serial.println("you are good");
+//    Serial.print("Distance: ");
+//    Serial.println(distance);
+//  }
+//
+//  delay(5000);
 }
 
 void slowStartMotors(int speed) {
