@@ -1,13 +1,13 @@
 
 //set pin numbers for the outputs
-const int leftFor = 7;
-const int leftRev = 8;
-const int rightFor = 2;
-const int rightRev = 4;
-const int motorControlPinR = 3;
-const int motorControlPinL = 9;
-const int trigPin = 12;
-const int echoPin = 11;
+const int leftFor = 26;
+const int leftRev = 30;
+const int rightFor = 28;
+const int rightRev = 32;
+const int motorControlPinR = 5;
+const int motorControlPinL = 4;
+const int trigPin = 2;
+const int echoPin = 22;
 long duration;
 int distance;
 //variable to keep track of current speed detting
@@ -30,7 +30,7 @@ void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   Serial.begin(9600); // Starts the serial communication
- 
+
   //  move forward
   setLeftForward();
   setRightForward();
@@ -41,20 +41,20 @@ void setup() {
   delay(1000);
 
   //move backwards
-  //setLeftReverse();
-  //setRightReverse();
-  // slowStartMotors(150);
-  //delay(800);
-  //slowStopMotors();
+  setLeftReverse();
+  setRightReverse();
+  slowStartMotors(100);
+  delay(800);
+  slowStopMotors();
 
-  // delay(1000);
+  delay(1000);
 
   //spin in place
-  //setLeftForward();
-  //setRightReverse();
-  //slowStartMotors(100);
-  //delay(3000);
-  //slowStopMotors();
+  setLeftForward();
+  setRightReverse();
+  slowStartMotors(75);
+  delay(3000);
+  slowStopMotors();
 }
 
 void loop() {
@@ -80,6 +80,30 @@ void loop() {
   //  slowStopMotors();
   //
   //  delay(1000);
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2;
+  // Prints the distance on the Serial Monitor
+  if (distance < 20)
+  { Serial.println("you are to close");
+    Serial.print("Distance: ");
+    Serial.println(distance);
+  }
+  else {
+    Serial.println("you are good");
+    Serial.print("Distance: ");
+    Serial.println(distance);
+  }
+
+  delay(5000);
 }
 
 void slowStartMotors(int speed) {
@@ -104,7 +128,7 @@ void slowStopMotors() {
     analogWrite(motorControlPinL, fadeValue);
     analogWrite(motorControlPinR, fadeValue);
     // wait for 5 milliseconds to for each of the 51 steps
-    delay(40);
+    delay(50);
   }
 }
 
@@ -127,3 +151,4 @@ void setRightReverse() {
   digitalWrite(rightFor, LOW);
   digitalWrite(rightRev, HIGH);
 }
+
