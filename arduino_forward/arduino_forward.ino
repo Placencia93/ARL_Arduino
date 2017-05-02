@@ -111,7 +111,6 @@ void loop() {
 
   }
 
-  delay(1000);
 }
 
 void slowStartMotors(int speed) {
