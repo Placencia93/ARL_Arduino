@@ -21,7 +21,7 @@ int distance;
 int motorSpeed = 0;
 
 //buzzer
-int const buzzerPin = 38;
+int const speakerPin = 38;
 /**
    function prototypes
 */
@@ -43,7 +43,7 @@ void setup() {
   pinMode(echoPinR, INPUT); // Sets the echoPin as an Input
   pinMode(trigPinL, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPinL, INPUT); // Sets the echoPin as an Input
-  pinMode (buzzerPin, OUTPUT);
+  pinMode (speakerPin, OUTPUT);//Sets up the buzzer
   Serial.begin(9600); // Starts the serial communication
 
 
@@ -87,34 +87,28 @@ void loop() {
 
   if (distance < 30)
   {
-    delay(1000);
-    Serial.println("backward");
-    digitalWrite (buzzerPin, HIGH);
-    delay (500);
-    digitalWrite (buzzerPin, LOW);
-    delay (500);
+//    Serial.println("backward");
+//    analogWrite (speakerPin, 10);
+//    delay (50);
+//    analogWrite (speakerPin, -1);
+
     //move backwards
     setLeftReverse();
     setRightReverse();
     slowStartMotors(100);
-    delay(800);
     slowStopMotors();
-   
-    
+
+
   }
   else {
- 
-    digitalWrite (buzzerPin, LOW);
-    delay (500);
     Serial.println("you are good");
     Serial.println("forward");
     //  move forward
     setLeftForward();
     setRightForward();
     slowStartMotors(100);
-    delay(1500);
     slowStopMotors();
-    
+
   }
 
   delay(1000);
